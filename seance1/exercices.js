@@ -22,8 +22,6 @@ console.log(nomAgés);
 
 // Exercice 3 :
 
-
-
 const inscriptions = [ 
     {id:10, nom:'Rami', filiere:'DEV'}, 
     {id:11, nom:'Kamali', filiere:'DEV'}, 
@@ -39,3 +37,14 @@ const newInscris = {id:14, nom:'Ayman', filiere:'DEV'};
 const result = ajouterInscription(inscriptions, newInscris);
 
 console.log(result);
+
+// Exercice 4 
+
+const clients = [ 
+{ nom: "Rami", montant: 4500 }, 
+{ nom: "Karimi", montant: 2300 }, 
+{ nom: "Chaouki", montant: 5500 }, 
+{ nom: "Ramoun", montant: 7700 }, 
+]; 
+
+

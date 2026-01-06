@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="text/babel">
+        
+        function App(){
+
+            const [showResult , setShowResult] = React.useState(false)
+            const [formData , setFormData] = React.useState({
+                user:'',
+                password:'',
+                date:'',
+                ville:'',
+                genre:'',
+                loisir:[],
+
+            })
+            
+
+            function handlChange(e){
+                const  {name , value , type,checked} = e.currentTarget ;
+                setFormData(prev =>({
+                    ...prev,
+                    [name]: type === "checkbox" ? (checked ? [...prev[name],value] : []) : value
+                }))
+            }
+            function handSubmit(e){
+                e.preventDefault();
+                setShowResult(true)
+                
+            }
+           
+            return(
+                <form onSubmit={handSubmit}>
+                    <h1>Inscription</h1> 
+                    <label >
+                        user
+                        <input type="text" name="user" onChange={handlChange} />
+                    </label>
+                     <label >
+                        password
+                        <input type="text" name="password" onChange={handlChange}  />
+                    </label>
+                     <label >
+                        date
+                        <input type="date" name="date" onChange={handlChange} />
+                    </label>
+                    <select onChange={handlChange} name="ville">
+                        <option value="oz">oz</option>    
+                        <option value="bm">bm</option>    
+                        <option value="casa">casa</option>    
+                    </select>
+                    <label>
+                        Genre
+                        <label>
+                            Homme
+                            <input type="radio" name="genre" value="homme" onChange={handlChange} />    
+                        </label>
+                        <label>
+                            Femme
+                            <input type="radio" name="genre" value="femme" onChange={handlChange}/>    
+                        </label>
+                    </label>
+                    <label>
+                        Loisirs
+                        <label>
+                            Sport
+                            <input type="checkbox" name="loisir" value="sport" onChange={handlChange} />    
+                        </label>
+                        <label>
+                            Lecture
+                            <input type="checkbox" name="loisir" value="lecture" onChange={handlChange} />    
+                        </label>
+                        <label>
+                            Musique
+                            <input type="checkbox" name="loisir" value="musique" onChange={handlChange} />    
+                        </label>
+                    </label>
+                    <button>S'inscrire</button>
+
+                    {showResult && 
+                        (
+                            <p>Je suis {formData.user} né le {formData.date} à {formData.ville} et mes loisirs sont : 
+                                {formData.loisir}  </p>
+                        )
+                    }
+
+                </form>
+            );
+
+        }
+        ReactDOM.render(<App /> ,
+            document.getElementById("root")
+        );
+   </script>
+</body>
+</html>

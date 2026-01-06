@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="text/babel">
+        
+        function App(){
+
+            const [currentData , setCurrentData] = React.useState({
+                user:"",
+                age:0,
+                ville:"",
+                status:""
+            })
+            const [allData , setAllData] = React.useState([])
+            const [filterData , setFilterData] = React.useState('all')
+
+            function handlChange(e){
+                const {name,value} = e.currentTarget ;
+                setCurrentData(prev => ({
+                    ...prev,
+                    [name] : value 
+                }))
+            }
+            function handlSubmit(e){
+                e.preventDefault();
+                setAllData(prev => [...prev,currentData])
+                
+                
+            }
+            const dataFiltred = allData.filter(item =>
+                filterData === "all" ? true : item.status === filterData
+            )
+
+            return(
+                <>
+                <form onSubmit={handlSubmit}>
+                    <input type="text" name="user" placeholder="user" onChange={handlChange} />
+                    <input type="number" name="age" placeholder="age" onChange={handlChange}/>
+                    <select name="ville" onChange={handlChange} >
+                        <option value="oz">oz</option>
+                        <option value="bm">bm</option>
+                        <option value="fb">fb</option>
+                    </select>
+                    <label>
+                        status
+                        <label>
+                            active
+                            <input type="radio" name="status" value="active" onChange={handlChange}/>    
+                        </label>
+                         <label>
+                            blocked
+                            <input type="radio" name="status" value="blocked" onChange={handlChange}/>    
+                        </label>      
+                    </label>
+                    <button onClick={() => setFilterData('all')}>submit</button>
+                </form>
+                <button onClick={() => setFilterData('active')}>show active</button>
+                <button onClick={() => setFilterData('blocked')}>show blocked</button>
+                <table border="1">
+                    <thead>
+                        <tr>
+                        <th>User</th>
+                        <th>Age</th>
+                        <th>Ville</th>
+                        <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {dataFiltred.map((item, i) => (
+                        <tr key={i}>
+                            <td>{item.user}</td>
+                            <td>{item.age}</td>
+                            <td>{item.ville}</td>
+                            <td>{item.status}</td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
+                
+                </>
+            );
+        }
+        ReactDOM.render(<App /> ,
+            document.getElementById("root")
+        );
+   </script>
+</body>
+</html>
